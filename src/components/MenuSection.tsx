@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus, ShoppingCart, Trash2 } from "lucide-react";
+import { Plus, Minus, ShoppingCart, Trash2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import menuImage from "@/assets/1.jpg";
 
@@ -34,6 +34,7 @@ interface CartItem extends MenuItem {
 const MenuSection = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const { toast } = useToast();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const menuItems: MenuItem[] = [
     {
@@ -96,6 +97,14 @@ const MenuSection = () => {
     },
     {
       id: 6,
+      name: "Onion Rings",
+      description: "Anéis de cebola empanados e crocantes servidos com molho ranch",
+      price: 16.90,
+      category: "Acompanhamentos",
+      image: img7
+    },
+    {
+      id: 16,
       name: "Onion Rings",
       description: "Anéis de cebola empanados e crocantes servidos com molho ranch",
       price: 16.90,
@@ -199,6 +208,10 @@ const MenuSection = () => {
     window.open(whatsappUrl, '_blank');
   };
 
+  const closeCart = () => {
+    setIsCartOpen(false);
+  };
+
   return (
   <section id="cardapio" className="relative py-20">
     {/* Background com overlay */}
@@ -289,47 +302,85 @@ const MenuSection = () => {
       ))}
 
       {cart.length > 0 && (
-        <div className="fixed bottom-4 right-4 z-50">
-          <Card className="w-80 shadow-burger">
-            <CardHeader className="flex justify-between items-center">
-  <CardTitle className="flex items-center">
-    <ShoppingCart className="w-5 h-5 mr-2" />
-    Carrinho ({cart.reduce((total, item) => total + item.quantity, 0)} itens)
-  </CardTitle>
-  <Button
-    variant="ghost"
-    size="icon"
-    onClick={() => setCart([])}
-    title="Limpar carrinho"
-  >
-    <Trash2 className="w-5 h-5 text-destructive" />
-  </Button>
-</CardHeader>
-            <CardContent>
-              <div className="space-y-2 mb-4 max-h-40 overflow-y-auto">
-                {cart.map(item => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span>{item.quantity}x {item.name}</span>
-                    <span>R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="border-t pt-2 mb-4">
-                <div className="flex justify-between font-bold">
-                  <span>Total:</span>
-                  <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
-                </div>
-              </div>
-              <Button 
-                onClick={sendToWhatsApp} 
-                className="w-full bg-green-600 hover:bg-green-700"
-              >
-                Enviar pelo WhatsApp
-              </Button>
-            </CardContent>
-          </Card>
+  <>
+    {/* Botão flutuante */}
+    {!isCartOpen && (
+      <button
+        onClick={() => setIsCartOpen(true)}
+        className="fixed bottom-4 right-4 z-50 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-accent transition-all"
+        title="Abrir carrinho"
+      >
+        <div className="relative">
+          <ShoppingCart className="w-6 h-6" />
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            {cart.reduce((total, item) => total + item.quantity, 0)}
+          </span>
         </div>
-      )}
+      </button>
+    )}
+
+    {/* Carrinho expandido */}
+    {isCartOpen && (
+      <>
+        {/* Overlay: ao clicar fora do carrinho, fecha */}
+        <div
+          onClick={closeCart}
+          className="fixed inset-0 bg-black/40 z-40"
+        ></div>
+
+        {/* Carrinho expandido */}
+        <div className="fixed bottom-4 right-4 z-50 w-80 max-h-[80vh] bg-background border rounded-xl shadow-xl flex flex-col transition-all animate-slide-up">
+          <div className="flex justify-between items-center px-4 py-3 border-b">
+            <div className="flex items-center gap-2 font-semibold">
+              <ShoppingCart className="w-5 h-5" />
+              Carrinho ({cart.reduce((total, item) => total + item.quantity, 0)} itens)
+            </div>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setCart([])}
+                title="Limpar carrinho"
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={closeCart}
+                title="Fechar carrinho"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="overflow-y-auto px-4 py-2 flex-1 space-y-2">
+            {cart.map(item => (
+              <div key={item.id} className="flex justify-between text-sm">
+                <span>{item.quantity}x {item.name}</span>
+                <span>R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+              </div>
+            ))}
+          </div>
+          <div className="border-t px-4 py-3">
+            <div className="flex justify-between font-bold mb-3">
+              <span>Total:</span>
+              <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
+            </div>
+            <Button 
+              onClick={sendToWhatsApp}
+              className="w-full bg-green-600 hover:bg-green-700"
+            >
+              Enviar pelo WhatsApp
+            </Button>
+          </div>
+        </div>
+      </>
+    )}
+  </>
+)}
     </div>
   </section>
 );
