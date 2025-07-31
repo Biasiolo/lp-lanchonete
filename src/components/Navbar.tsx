@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,11 +26,18 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-2xl font-bold text-primary cursor-pointer hover:text-accent transition-smooth"
-          >
-            Prime Burguer
-          </div>
+  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  className="flex items-center space-x-2 cursor-pointer transition-smooth"
+>
+  <img 
+    src={logo} 
+    alt="Prime Burguer Logo" 
+    className="w-8 h-8 md:w-10 md:h-10 object-contain"
+  />
+  <span className="text-2xl font-bold text-primary hover:text-accent">
+    Prime Burguer
+  </span>
+</div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">

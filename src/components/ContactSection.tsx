@@ -5,6 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Instagram, Facebook, MessageCircle, Mail } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import contactBg from "@/assets/contact.jpg";
+
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -42,11 +44,19 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contato" className="py-20 bg-muted">
-      <div className="container mx-auto px-4">
+    <section id="contato" className="relative py-20">
+  {/* Imagem de fundo com overlay */}
+  <div className="absolute inset-0 ">
+    <div
+      className="w-full h-full bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${contactBg})` }}
+    />
+    <div className="absolute inset-0 bg-black opacity-70" />
+  </div>
+      <div className="relative  container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Entre em Contato</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-4">Entre em Contato</h2>
+          <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
             Tem alguma dúvida, sugestão ou quer fazer um pedido especial? Fale conosco!
           </p>
         </div>

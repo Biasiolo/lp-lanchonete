@@ -26,11 +26,11 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="servicos" className="py-20 bg-background">
+    <section id="servicos" className="py-20 bg-black">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Nossos Serviços</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-4">Nossos Serviços</h2>
+          <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
             Comprometidos em oferecer a melhor experiência gastronômica
           </p>
         </div>
