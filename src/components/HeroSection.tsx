@@ -10,18 +10,18 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
       />
       <div className="absolute inset-0 bg-black/30" />
-      
+
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-        <img 
-  src={logo} 
-  alt="Logo Prime Burguer" 
-  className="mx-auto w-32 md:w-40 mb-6 drop-shadow-lg"
-/>
+        <img
+          src={logo}
+          alt="Logo Prime Burguer"
+          className="mx-auto w-32 md:w-40 mb-6 drop-shadow-lg"
+        />
         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
           Prime Burguer
         </h1>
@@ -29,8 +29,8 @@ const HeroSection = () => {
           Os melhores burguers da cidade!<br />
           Sabor autêntico que você nunca esquece.
         </p>
-        <Button 
-          size="lg" 
+        <Button
+          size="lg"
           onClick={scrollToMenu}
           className="bg-primary hover:bg-accent text-white px-8 py-6 text-lg font-semibold shadow-burger transition-smooth transform hover:scale-105"
         >

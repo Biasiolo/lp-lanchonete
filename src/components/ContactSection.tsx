@@ -18,18 +18,18 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Enviar mensagem via WhatsApp
     const message = `🍔 *Contato Prime Burguer*\n\n*Nome:* ${formData.name}\n*Email:* ${formData.email}\n*Mensagem:* ${formData.message}`;
     const phoneNumber = "5512999999999";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
+
     window.open(whatsappUrl, '_blank');
-    
+
     // Limpar formulário
     setFormData({ name: '', email: '', message: '' });
-    
+
     toast({
       title: "Mensagem enviada!",
       description: "Redirecionando para o WhatsApp...",
@@ -45,14 +45,14 @@ const ContactSection = () => {
 
   return (
     <section id="contato" className="relative py-20">
-  {/* Imagem de fundo com overlay */}
-  <div className="absolute inset-0 ">
-    <div
-      className="w-full h-full bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${contactBg})` }}
-    />
-    <div className="absolute inset-0 bg-black opacity-70" />
-  </div>
+      {/* Imagem de fundo com overlay */}
+      <div className="absolute inset-0 ">
+        <div
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${contactBg})` }}
+        />
+        <div className="absolute inset-0 bg-black opacity-70" />
+      </div>
       <div className="relative  container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4">Entre em Contato</h2>

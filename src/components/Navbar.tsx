@@ -25,19 +25,19 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div 
-  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-  className="flex items-center space-x-2 cursor-pointer transition-smooth"
->
-  <img 
-    src={logo} 
-    alt="Prime Burguer Logo" 
-    className="w-8 h-8 md:w-10 md:h-10 object-contain"
-  />
-  <span className="text-2xl font-bold text-primary hover:text-accent">
-    Prime Burguer
-  </span>
-</div>
+          <div
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center space-x-2 cursor-pointer transition-smooth"
+          >
+            <img
+              src={logo}
+              alt="Prime Burguer Logo"
+              className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            />
+            <span className="text-2xl font-bold text-primary hover:text-accent">
+              Prime Burguer
+            </span>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
@@ -50,7 +50,7 @@ const Navbar = () => {
                 {item.label}
               </button>
             ))}
-            <Button 
+            <Button
               onClick={() => scrollToSection('cardapio')}
               className="bg-primary hover:bg-accent text-primary-foreground px-6 py-2"
             >
@@ -83,7 +83,7 @@ const Navbar = () => {
                   {item.label}
                 </button>
               ))}
-              <Button 
+              <Button
                 onClick={() => scrollToSection('cardapio')}
                 className="bg-primary hover:bg-accent text-primary-foreground self-start mt-4"
               >
