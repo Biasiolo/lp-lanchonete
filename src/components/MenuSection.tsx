@@ -24,7 +24,7 @@ interface MenuItem {
   price: number;
   category: string;
   popular?: boolean;
-   image: string;
+  image: string;
 }
 
 interface CartItem extends MenuItem {
@@ -144,13 +144,13 @@ const MenuSection = () => {
         return [...prevCart, { ...item, quantity: 1 }];
       }
     });
-    
+
     toast({
-  title: "Item adicionado!",
-  description: `${item.name} foi adicionado ao carrinho.`,
-  duration: 3000,
-  className: "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-fit max-w-sm bg-background border rounded-md shadow-lg p-4"
-});
+      title: "Item adicionado!",
+      description: `${item.name} foi adicionado ao carrinho.`,
+      duration: 3000,
+      className: "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-fit max-w-sm bg-background border rounded-md shadow-lg p-4"
+    });
 
   };
 
@@ -181,22 +181,22 @@ const MenuSection = () => {
   const sendToWhatsApp = () => {
     if (cart.length === 0) {
       toast({
-  title: "Carrinho vazio",
-  description: "Adicione alguns itens ao carrinho antes de fazer o pedido.",
-  variant: "destructive",
-  duration: 2000,
-  className: "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-fit max-w-sm bg-background border rounded-md shadow-lg p-4"
-});
+        title: "Carrinho vazio",
+        description: "Adicione alguns itens ao carrinho antes de fazer o pedido.",
+        variant: "destructive",
+        duration: 2000,
+        className: "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1000] w-fit max-w-sm bg-background border rounded-md shadow-lg p-4"
+      });
       return;
     }
 
     let message = "🍔 *Pedido Prime Burguer* 🍔\n\n";
-    
+
     cart.forEach(item => {
       message += `${item.quantity}x ${item.name}\n`;
       message += `R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}\n\n`;
     });
-    
+
     message += `💰 *Total: R$ ${getTotalPrice().toFixed(2).replace('.', ',')}*\n\n`;
     message += "📍 *Endereço de entrega:*\n";
     message += "_Por favor, informe seu endereço completo_";
@@ -204,7 +204,7 @@ const MenuSection = () => {
     const phoneNumber = "5512999999999"; // Substituir pelo número real
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
+
     window.open(whatsappUrl, '_blank');
   };
 
@@ -213,177 +213,177 @@ const MenuSection = () => {
   };
 
   return (
-  <section id="cardapio" className="relative py-20">
-    {/* Background com overlay */}
-    <div className="absolute inset-0 z-0">
-      <div 
-        className="w-full h-full bg-cover bg-center bg-no-repeat" 
-        style={{ backgroundImage: `url(${menuImage})` }} 
-      />
-      <div className="absolute inset-0 bg-black opacity-40" />
-    </div>
-
-    {/* Conteúdo principal */}
-    <div className="relative z-10 container mx-auto px-4">
-      <div className="text-center mb-16 ">
-        <h2 className="text-5xl font-bold text-white mb-4">Nosso Cardápio</h2>
-        <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
-          Sabores únicos preparados com ingredientes frescos e muito amor
-        </p>
+    <section id="cardapio" className="relative py-20">
+      {/* Background com overlay */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${menuImage})` }}
+        />
+        <div className="absolute inset-0 bg-black opacity-40" />
       </div>
 
-      {categories.map(category => (
-        <div key={category} className="mb-12 ">
-          <h3 className="text-3xl font-bold text-white mb-6 text-center bg-red-500/80 rounded-t-3xl p-4">
-            {category}
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {menuItems
-              .filter(item => item.category === category)
-              .map(item => (
-                <Card key={item.id} className="hover:shadow-burger transition-smooth">
-                  <CardHeader>
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg">
-                        {item.name}
-                        {item.popular && (
-                          <Badge className="ml-2 bg-primary text-primary-foreground">
-                            Popular
-                          </Badge>
+      {/* Conteúdo principal */}
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="text-center mb-16 ">
+          <h2 className="text-5xl font-bold text-white mb-4">Nosso Cardápio</h2>
+          <p className="text-xl text-neutral-100 max-w-2xl mx-auto">
+            Sabores únicos preparados com ingredientes frescos e muito amor
+          </p>
+        </div>
+
+        {categories.map(category => (
+          <div key={category} className="mb-12 ">
+            <h3 className="text-3xl font-bold text-white mb-6 text-center bg-red-500/80 rounded-t-3xl p-4">
+              {category}
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {menuItems
+                .filter(item => item.category === category)
+                .map(item => (
+                  <Card key={item.id} className="hover:shadow-burger transition-smooth">
+                    <CardHeader>
+                      <div className="flex justify-between items-start">
+                        <CardTitle className="text-lg">
+                          {item.name}
+                          {item.popular && (
+                            <Badge className="ml-2 bg-primary text-primary-foreground">
+                              Popular
+                            </Badge>
+                          )}
+                        </CardTitle>
+                        <span className="text-xl font-bold text-primary">
+                          R$ {item.price.toFixed(2).replace('.', ',')}
+                        </span>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-40 object-cover rounded-md mb-4"
+                      />
+                      <p className="text-muted-foreground mb-4">
+                        {item.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        {getItemQuantity(item.id) > 0 ? (
+                          <div className="flex items-center space-x-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => removeFromCart(item.id)}
+                            >
+                              <Minus className="w-4 h-4" />
+                            </Button>
+                            <span className="font-semibold">
+                              {getItemQuantity(item.id)}
+                            </span>
+                            <Button
+                              size="sm"
+                              onClick={() => addToCart(item)}
+                            >
+                              <Plus className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        ) : (
+                          <Button onClick={() => addToCart(item)}>
+                            <Plus className="w-4 h-4 mr-2" />
+                            Adicionar
+                          </Button>
                         )}
-                      </CardTitle>
-                      <span className="text-xl font-bold text-primary">
-                        R$ {item.price.toFixed(2).replace('.', ',')}
-                      </span>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <img
-  src={item.image}
-  alt={item.name}
-  className="w-full h-40 object-cover rounded-md mb-4"
-/>
-                    <p className="text-muted-foreground mb-4">
-                      {item.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      {getItemQuantity(item.id) > 0 ? (
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => removeFromCart(item.id)}
-                          >
-                            <Minus className="w-4 h-4" />
-                          </Button>
-                          <span className="font-semibold">
-                            {getItemQuantity(item.id)}
-                          </span>
-                          <Button
-                            size="sm"
-                            onClick={() => addToCart(item)}
-                          >
-                            <Plus className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <Button onClick={() => addToCart(item)}>
-                          <Plus className="w-4 h-4 mr-2" />
-                          Adicionar
-                        </Button>
-                      )}
-                    </div>
-                    
-                  </CardContent>
-                </Card>
-              ))}
-          </div>
-        </div>
-      ))}
+                      </div>
 
-      {cart.length > 0 && (
-  <>
-    {/* Botão flutuante */}
-    {!isCartOpen && (
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-4 right-4 z-50 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-accent transition-all"
-        title="Abrir carrinho"
-      >
-        <div className="relative">
-          <ShoppingCart className="w-6 h-6" />
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
-            {cart.reduce((total, item) => total + item.quantity, 0)}
-          </span>
-        </div>
-      </button>
-    )}
-
-    {/* Carrinho expandido */}
-    {isCartOpen && (
-      <>
-        {/* Overlay: ao clicar fora do carrinho, fecha */}
-        <div
-          onClick={closeCart}
-          className="fixed inset-0 bg-black/40 z-40"
-        ></div>
-
-        {/* Carrinho expandido */}
-        <div className="fixed bottom-4 right-4 z-50 w-80 max-h-[80vh] bg-background border rounded-xl shadow-xl flex flex-col transition-all animate-slide-up">
-          <div className="flex justify-between items-center px-4 py-3 border-b">
-            <div className="flex items-center gap-2 font-semibold">
-              <ShoppingCart className="w-5 h-5" />
-              Carrinho ({cart.reduce((total, item) => total + item.quantity, 0)} itens)
+                    </CardContent>
+                  </Card>
+                ))}
             </div>
-            <div className="flex items-center gap-1">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setCart([])}
-                title="Limpar carrinho"
-                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+          </div>
+        ))}
+
+        {cart.length > 0 && (
+          <>
+            {/* Botão flutuante */}
+            {!isCartOpen && (
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="fixed bottom-4 right-4 z-50 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-accent transition-all"
+                title="Abrir carrinho"
               >
-                <Trash2 className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={closeCart}
-                title="Fechar carrinho"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-          <div className="overflow-y-auto px-4 py-2 flex-1 space-y-2">
-            {cart.map(item => (
-              <div key={item.id} className="flex justify-between text-sm">
-                <span>{item.quantity}x {item.name}</span>
-                <span>R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
-              </div>
-            ))}
-          </div>
-          <div className="border-t px-4 py-3">
-            <div className="flex justify-between font-bold mb-3">
-              <span>Total:</span>
-              <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
-            </div>
-            <Button 
-              onClick={sendToWhatsApp}
-              className="w-full bg-green-600 hover:bg-green-700"
-            >
-              Enviar pelo WhatsApp
-            </Button>
-          </div>
-        </div>
-      </>
-    )}
-  </>
-)}
-    </div>
-  </section>
-);
+                <div className="relative">
+                  <ShoppingCart className="w-6 h-6" />
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    {cart.reduce((total, item) => total + item.quantity, 0)}
+                  </span>
+                </div>
+              </button>
+            )}
+
+            {/* Carrinho expandido */}
+            {isCartOpen && (
+              <>
+                {/* Overlay: ao clicar fora do carrinho, fecha */}
+                <div
+                  onClick={closeCart}
+                  className="fixed inset-0 bg-black/40 z-40"
+                ></div>
+
+                {/* Carrinho expandido */}
+                <div className="fixed bottom-4 right-4 z-50 w-80 max-h-[80vh] bg-background border rounded-xl shadow-xl flex flex-col transition-all animate-slide-up">
+                  <div className="flex justify-between items-center px-4 py-3 border-b">
+                    <div className="flex items-center gap-2 font-semibold">
+                      <ShoppingCart className="w-5 h-5" />
+                      Carrinho ({cart.reduce((total, item) => total + item.quantity, 0)} itens)
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setCart([])}
+                        title="Limpar carrinho"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={closeCart}
+                        title="Fechar carrinho"
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="overflow-y-auto px-4 py-2 flex-1 space-y-2">
+                    {cart.map(item => (
+                      <div key={item.id} className="flex justify-between text-sm">
+                        <span>{item.quantity}x {item.name}</span>
+                        <span>R$ {(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t px-4 py-3">
+                    <div className="flex justify-between font-bold mb-3">
+                      <span>Total:</span>
+                      <span>R$ {getTotalPrice().toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <Button
+                      onClick={sendToWhatsApp}
+                      className="w-full bg-green-600 hover:bg-green-700"
+                    >
+                      Enviar pelo WhatsApp
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
 
 };
 
